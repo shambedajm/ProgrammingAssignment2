@@ -5,7 +5,7 @@
 ## Usage:
 ## a<-makeCacheMatrix()
 ## a$set(y) store matrix
-## a$get() return matrix
+## a$get()  return matrix
 ## a$setinv() store inverse
 ## a$getinv() return inverse
 
