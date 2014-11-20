@@ -37,27 +37,33 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## CacheSolve will return the inverse of the cacheMatrix argument and store the inverse
 ## If the inverse does not already exist, it will be caclulated.
-## Caveats:
-## The argument to cacheSolve must be a cacheMatrix
+## Warning:
+## The argument to cacheSolve must be a cacheMatrix type list
 ## The argument matrix must have an inverse matrix
 
 ## Usage:
 ## cacheSolve(x)
 
-
 cacheSolve <- function(x, ...) {
+  
   #Get current inverse value. Also checks if x is a cacheMatrix
   i<-x$getinv()
-  #return cached inverse if it non-null
-  if(!is.null(i)) {
-    message("cached data")
-    return(i)
-  }
-  #calculate and return inverse
-  datamatrix<-x$get()
-    i<-solve(datamatrix,...)
-  x$setinv(i)
   
-  i
+  #return cached inverse if it already exists
+  
+  if(!is.null(i)) {
+    message("cached data")  #output message
+    return(i)               #return the inverse
+  }
+  
+  #nothing cached, so calculate and return inverse
+  
+  datamatrix<-x$get()       #get the matrix
+  
+  i<-solve(datamatrix,...)  #get the inverse with solve()
+  
+  x$setinv(i)               #store inverse in the cacheMatrix
+  
+  i                         #return the inverse
   
 }
